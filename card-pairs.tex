@@ -1,0 +1,102 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\DeclareMathOperator*{\E}{E}
+
+% \usepackage{amsthm}
+% \newtheorem{theorem}{Theorem}
+
+\usepackage{mathtools}
+
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+
+% \usepackage{tikz}
+
+\usepackage{geometry}
+\geometry{hmargin=3cm,vmargin=3cm}
+
+\begin{document}
+
+\title{The card pairs problem}
+\author{Ernest A.\ C.}
+
+\maketitle
+
+The problem was posted on Reddit%
+\footnote{\url{https://www.reddit.com/r/statistics/comments/7eginx/}}
+in 2017 and is stated as follows:
+\begin{quote}
+  You have one hundred cards numbered $1,\dotsc,100$. You randomly
+  pair all of the cards. Whichever of the pair is a higher number is
+  considered to be a ‘winner’. On average, what percentage of cards
+  from the upper half ($51,\dotsc,100$) will be considered to be
+  ‘winners’?
+\end{quote}
+
+
+
+Let $A$ and $B$ be the sets of cards in the lower and upper halves of
+the deck respectively, and let $W$ be the number of winners in $B$
+after randomly pairing all the cards in the deck with one another.  We
+are asked to find the expected value of $W / 50$.  Since any card in
+$B$ wins when paired with any card in $A$, the largest amount of upper
+half winners occurs when every card in $B$ is paired with some card in
+$A$, in which case $w = 50$.  Conversely, the least number of upper
+half winners occurs when every card in $B$ is paired with another card
+in $B$, in which case $w = 25$.  It follows that that $\Pr(W=w) = 0$
+for any $w > 50$ and for any $w < 25$.  Therefore we can write the
+expected value of $W / 50$ as
+\begin{equation}
+  \label{eq:expected-value}
+  \E(W/50) = \frac{1}{50} \sum_{w=25}^{50} w \Pr(W=w) .
+\end{equation}
+
+Our task now is to find $\Pr(W=w)$ for all $w \in \{25,\dotsc,50 \}$.
+Let $M$ be the number of cards from the upper half of the deck that
+are paired with cards from the lower half, and let $R$ be the number
+of cards from the upper half that are paired with other cards from the
+upper half.  The number of winners from the upper half of the deck is
+\begin{equation*}
+  w = M + \frac{R}{2} .
+\end{equation*}
+Since $M + R = 50$, it is clear that $M$ and $R$ are uniquely
+determined by the number of winners from the upper half, $w$.  For
+example, if $w = 34$, then $M = 18$ and $R = 32$.
+
+There are ${50 \choose M}$ different $M$-element subsets of $B$.  The
+first card in the subset can be paired with any of the $50$ cards in
+$A$.  The second card can be paired with any of the $49$ remaining
+cards in $A$, and so forth.  The $R$ remaining cards in $B$ are paired
+with one another.  The first card can be paired with $R-1$ cards, the
+second with $R-3$ cards, and so forth.  The same thing applies to the
+$R$ remaining cards in $A$.  Thus, by the multiplication principle,
+the number of ways the cards in the deck can be paired with one
+another resulting in a particular number of winners from the upper
+half of the deck is
+\begin{equation*}
+  {50 \choose M} \prod^M_{k = 1} (50 - k + 1)
+  \left( \prod^{R / 2}_{k = 1} (R - 2k + 1) \right)^2 ,
+\end{equation*}
+where $R = 100 - 2w$ and $M = 50 - R$.  Dividing by the size of the
+sample space
+\begin{equation*}
+  \prod^{50}_{k = 1} (100 - 2k + 1)
+\end{equation*}
+we get the probability $\Pr(W = w)$, and substituting in
+(\ref{eq:expected-value}) we find that
+\begin{equation*}
+  \E(W/50) = \frac{37.6262}{50} = 0.7525 .
+\end{equation*}
+Thus, on average, $75.25\%$ of the cards from the upper half of the
+deck will be considered to be winners.
+
+% \begin{figure}[h]
+%   \centering
+%   \input{pmf.tex}
+%   \caption{Probability distribution of $W$.}
+%   \label{fig:pmf}
+% \end{figure}
+
+\end{document}
