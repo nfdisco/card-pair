@@ -1,0 +1,13 @@
+The card pairs problem
+======================
+
+The problem was posted on Reddit in 2017 [1] and is stated as follows:
+
+  You have one hundred cards numbered 1, ... 100.  You randomly pair
+  all of the cards.  Whichever of the pair is a higher number is
+  considered to be a ‘winner’.  On average, what percentage of cards
+  from the upper half (51, ... 100) will be considered to be
+  ‘winners’?
+
+[1] https://www.reddit.com/r/statistics/comments/7eginx/
+
